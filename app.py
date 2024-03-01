@@ -12,18 +12,18 @@ from exceptions.custom_exception import *
 from dotenv import load_dotenv
 
 
-env_path = Path(__file__).parent / ".env"
 
 
 
-load_dotenv(env_path)
+load_dotenv()
 
 
 CERTIFICATE = os.path.join(os.path.dirname(certifi.__file__), "cacert.pem")
 
 
 if os.getenv("DEVELOPMENT"):
-    connect(host=os.getenv("MONGODB_URL"))
+
+    connect(host=os.getenv("MONGODB_URL_DEVELOPMENT"))
 
 else:
     connect(host=os.getenv("MONGODB_URL_ONLINE"), tls=True, tlsCAFile=CERTIFICATE)

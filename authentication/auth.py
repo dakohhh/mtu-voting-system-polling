@@ -78,7 +78,7 @@ class Auth:
 
     async def authenticate_admin(self, login_input: LoginSchema):
 
-        user = await AdminRepository.get_admin_by_email(login_input.email, login_input.department)
+        user = await AdminRepository.get_admin_by_email(login_input.email)
 
 
         if user is None or not checkPassword(login_input.password, user.password):

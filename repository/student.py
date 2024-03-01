@@ -1,5 +1,6 @@
 from database.schema import Student
 from authentication.hashing import hashPassword
+from utils.func import generate_random_voting_number
 from utils.query import SignupSchema
 import typing
 
@@ -14,7 +15,8 @@ class StudentRepository:
             lastname=signup_input.lastname,
             password=hashPassword(signup_input.password),
             email=signup_input.email,
-            department=signup_input.department,
+            department=signup_input.department_id,
+            voting_number= generate_random_voting_number()
         )
 
         query.save()

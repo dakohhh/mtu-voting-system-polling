@@ -35,6 +35,8 @@ class Student(Document):
 
     password = StringField(required=True)
 
+    voting_number = StringField(required=True, max_length=6)
+
     department = ReferenceField(Department, required=True)
 
     is_verified = BooleanField(default=False)
