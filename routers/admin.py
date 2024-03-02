@@ -121,7 +121,7 @@ async def add_candidate_to_election(
 
         raise BadRequestException("this election doesn't exists")
 
-    candidate = await CandidateRepository.create_candidate(candidate_input)
+    candidate = await CandidateRepository.create_candidate(candidate_input, department=admin.department)
 
     if candidate_input.candidate_image:
 

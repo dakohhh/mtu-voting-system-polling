@@ -111,11 +111,14 @@ class Candidate(Document):
 
     election = ReferenceField(Election, required=True)
 
+    department = ReferenceField(Department)
+
     def to_dict(self):
         return {
             "id": str(self.id),
             "candidate_name": self.candidate_name,
             "election": str(self.election.id),
+            "department": str(self.department.id),
             "candidate_image": self.candidate_image,
         }
 

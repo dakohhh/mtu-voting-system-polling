@@ -7,7 +7,7 @@ from utils.query import CreateCandidateSchema
 class CandidateRepository:
 
     @staticmethod
-    async def create_candidate(candidate_input: CreateCandidateSchema):
+    async def create_candidate(candidate_input: CreateCandidateSchema, department):
 
         default_image = "https://res.cloudinary.com/do1iufmkf/image/upload/v1708870941/mtu_vote/i1prdyd7bnif71wbbbn5.png"
 
@@ -15,6 +15,7 @@ class CandidateRepository:
             candidate_name=candidate_input.candidate_name,
             candidate_image=default_image,
             election=candidate_input.election_id,
+            department=department,
         )
 
         query.save()
