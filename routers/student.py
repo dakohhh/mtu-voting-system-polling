@@ -24,6 +24,17 @@ router = APIRouter(tags=["Student"], prefix="/student")
 auth = Auth()
 
 
+@router.get("/")
+async def get_student(
+    request: Request,
+    student: Student = Depends(auth.get_current_student),
+):
+
+    context = {"student": student.to_dict()}
+
+    return CustomResponse("get student successfully", data=context)
+
+
 @router.post("/signup")
 async def signup_student(request: Request, signup_input: SignupSchema):
 

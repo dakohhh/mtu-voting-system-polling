@@ -71,6 +71,8 @@ class CreateCandidateSchema:
 
 class VoteSchema(BaseModel):
 
+    voting_number: str
+
     candidate_id: PydanticObjectId
 
     election_id: PydanticObjectId

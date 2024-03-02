@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mongoengine import connect, errors
 from routers.auth import router as auth
 from routers.student import router as student
+from routers.elections import router as elections
 from routers.department import router as department
 from routers.admin import router as admin
 from exceptions.custom_exception import *
@@ -23,7 +24,7 @@ CERTIFICATE = os.path.join(os.path.dirname(certifi.__file__), "cacert.pem")
 
 if os.getenv("DEVELOPMENT"):
 
-    connect(host=os.getenv("MONGODB_URL_DEVELOPMENT"))
+    connect(host=os.getenv("MONGODB_URL_DEV"))
 
 else:
     connect(host=os.getenv("MONGODB_URL_ONLINE"), tls=True, tlsCAFile=CERTIFICATE)
@@ -54,6 +55,7 @@ app.add_middleware(
 app.include_router(auth)
 app.include_router(admin)
 app.include_router(student)
+app.include_router(elections)
 app.include_router(department)
 app.add_exception_handler(UserExistException, user_exist_exception_handler)
 app.add_exception_handler(UnauthorizedException, unauthorized_exception_handler)

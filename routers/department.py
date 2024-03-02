@@ -1,4 +1,5 @@
 from beanie import PydanticObjectId
+from bson import ObjectId
 from fastapi import APIRouter, Request, status
 from authentication.auth import Auth
 from database.schema import Department
@@ -40,7 +41,7 @@ async def create_department(
     return CustomResponse("created department successfully", data=context)
 
 
-@router.get("/{department_id}/elections}")
+@router.get("/{department_id}/elections")
 async def get_all_elections_in_department(
     request: Request, department_id: PydanticObjectId
 ):
@@ -49,6 +50,7 @@ async def get_all_elections_in_department(
 
         raise BadRequestException("this department doesn't exist")
 
+    
     elections = await ElectionRepository.get_all_elections(department_id)
 
     context = {"elections": [election.to_dict() for election in elections]}

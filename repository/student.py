@@ -43,3 +43,12 @@ class StudentRepository:
         query = Student.objects(id=student_id).first()
 
         return query
+
+
+    @staticmethod
+    async def get_student_by_voting_number(voting_number:str)  -> typing.Union[Student, None]:
+
+
+        query = Student.objects(voting_number=voting_number).first()
+
+        return query

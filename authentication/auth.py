@@ -89,22 +89,6 @@ class Auth:
         return access_token
 
 
-    
-    async def authenticate_voter(self, voting_number:str):
-
-        user = await StudentRepository.get_student_by(login_input.email)
-
-
-        if user is None or not checkPassword(login_input.password, user.password):
-            raise CredentialsException("incorrect email or password")
-
-        access_token = self.auth_token.create_access_token(str(user.id))
-
-        return access_token
-    
-
-
-
 
     async def get_current_student(
         self, request: Request, data: HTTPAuthorizationCredentials = Depends(bearer)
