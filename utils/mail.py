@@ -42,3 +42,27 @@ def get_otp_message_schema(student:Student, otp:str):
         body=html,
         subtype=MessageType.html
     )
+
+
+
+
+
+def get_send_voting_number_message_schema(student:Student):
+
+
+
+    html = f'''<div style="text-align: center;">
+            <img src="https://res.cloudinary.com/marvel6/image/upload/v1681901707/chow_qjjtro.jpg" alt="Company Logo" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-top: 20px;">
+        </div>
+        <p style="font-size: 16px; margin-bottom: 20px;">Dear {student.firstname} {student.lastname} ,</p>
+        <p style="font-size: 16px; margin-bottom: 20px;">Your Voting number is  {student.voting_number}.</p>
+        <p style="font-size: 16px; margin-bottom: 20px;">Thank you! :-)</p>
+        <p style="font-size: 16px; margin-bottom: 0;">MTU VOTE </p>
+    </div>'''
+
+    return MessageSchema(
+        subject=f"Your Voting Number!",
+        recipients=[student.email],
+        body=html,
+        subtype=MessageType.html
+    )

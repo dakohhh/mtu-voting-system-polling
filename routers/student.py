@@ -15,7 +15,7 @@ from repository.vote import VoteRepository
 from utils.func import generate_random_otp
 from utils.query import SignupSchema, VoteSchema
 from exceptions.custom_exception import BadRequestException
-from utils.task import send_otp_mail
+from utils.task import send_otp_mail, send_voting_number_mail
 
 
 router = APIRouter(tags=["Student"], prefix="/student")
@@ -56,12 +56,14 @@ async def signup_student(request: Request, signup_input: SignupSchema):
 
 @router.post("/send_voting_number")
 async def send_voting_number(
-    request: Request, student: Student = Depends(auth.get_current_student)
+    request: Request,
+    background_task: BackgroundTasks,
+    student: Student = Depends(auth.get_current_student),
 ):
 
-    context = {"student": student.to_dict()}
+    background_task.add_task(send_voting_number_mail, student)
 
-    return CustomResponse("signup student successfully", data=context)
+    return CustomResponse("voting number sent to student successfully ")
 
 
 @router.post("/request_otp")
@@ -110,4 +112,3 @@ async def verify_student(request: Request, email: EmailStr, otp: str):
     context = {"student": student.to_dict()}
 
     return CustomResponse("student verified successfully", data=context)
-

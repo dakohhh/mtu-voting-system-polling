@@ -25,6 +25,7 @@ auth = Auth()
 
 
 
+
 @router.get("/election/{id}")
 async def get_candidates_on_elections(
     request: Request,
